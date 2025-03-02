@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediMate - Your Medical Voice Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- LiveKit SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/livekit-client/dist/livekit-client.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <div class="logo">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <h1>MediMate</h1>
+            </div>
+            <p class="tagline">Your Personal Medical Voice Assistant</p>
+        </header>
+
+        <main>
+            <div class="avatar-section">
+                <div class="avatar-container">
+                    <div id="video-container">
+                        <video id="avatar-video" autoplay playsinline></video>
+                        <div id="avatar-placeholder">
+                            <i class="fas fa-user-md"></i>
+                            <p>Avatar will appear here</p>
+                        </div>
+                    </div>
+                    <div class="avatar-controls">
+                        <label for="avatar-select">Choose Avatar:</label>
+                        <select id="avatar-select">
+                            {% for avatar in avatars %}
+                            <option value="{{ avatar.id }}">
+                                {{ avatar.name }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls-section">
+                <button id="start-btn" class="primary-btn">
+                    <i class="fas fa-play"></i> Start Assistant
+                </button>
+                <button id="stop-btn" class="danger-btn" disabled>
+                    <i class="fas fa-stop"></i> Stop Assistant
+                </button>
+            </div>
+
+            <div class="interaction-section">
+                <div class="chat-container">
+                    <div id="chat-messages">
+                        <div class="message assistant">
+                            <div class="message-content">
+                                <p>Hello! I'm your MediMate assistant. I can answer your medical questions. How can I help you today?</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="controls-container">
+                    <div class="input-group">
+                        <input type="text" id="text-input" placeholder="Type your medical question here...">
+                        <button id="send-btn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <div class="voice-controls">
+                        <button id="mic-btn" class="voice-btn">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                        <div id="recording-indicator" class="hidden">
+                            <div class="pulse"></div>
+                            <span>Listening...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>MediMate &copy; 2025 | Powered by Heygen AI</p>
+            <p class="disclaimer">For informational purposes only. Always consult with a healthcare professional for medical advice.</p>
+        </footer>
+    </div>
+
+    <!-- Loading overlay -->
+    <div id="loading-overlay" class="hidden">
+        <div class="spinner"></div>
+        <p id="loading-message">Initializing...</p>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/heygen.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
